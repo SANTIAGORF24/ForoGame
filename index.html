@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foro Abeja - Exploración 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="loading-screen">
+    <div class="loader-content">
+      <div class="bee-loader">🐝</div>
+      <h1>FORO ABEJA</h1>
+      <div class="loading-bar">
+        <div class="loading-fill"></div>
+      </div>
+      <p>Cargando mundo...</p>
+    </div>
+  </div>
+
+  <div id="hud">
+    <div id="controls-hint" class="hint-box">
+      <span class="hint-icon">⌨️</span>
+      <span class="hint-text">Usa las flechas o WASD para moverte</span>
+    </div>
+
+    <div id="interaction-prompt" class="prompt-box hidden">
+      <span class="prompt-icon">⚡</span>
+      <span class="prompt-text">Presiona E para interactuar</span>
+    </div>
+
+    <div id="minimap">
+      <div class="minimap-title">MAPA</div>
+      <div class="minimap-content">
+        <div class="minimap-zone" style="top: 20%; left: 80%;" title="Evidencias">📸</div>
+        <div class="minimap-zone" style="top: 10%; left: 25%;" title="Planeaciones">🌳</div>
+        <div class="minimap-zone" style="top: 80%; left: 50%;" title="Libro">📚</div>
+        <div class="minimap-zone" style="top: 65%; left: 15%;" title="Biografías">👤</div>
+        <div class="minimap-zone" style="top: 50%; left: 50%; opacity: 0.5;" title="Spawn">🏠</div>
+        <div id="player-dot"></div>
+      </div>
+    </div>
+
+    <button id="settings-btn" class="icon-btn">⚙️</button>
+
+    <div id="settings-panel" class="settings-panel hidden">
+      <div class="settings-header">
+        <h2>Configuración</h2>
+        <button id="close-settings" class="close-btn">×</button>
+      </div>
+      <div class="settings-content">
+        <div class="setting-item">
+          <label>Velocidad de la abeja</label>
+          <input type="range" id="speed-slider" min="1" max="10" value="5">
+          <span id="speed-value">5</span>
+        </div>
+        <div class="setting-item">
+          <label>Música ambiental</label>
+          <button id="music-toggle" class="toggle-btn off">OFF</button>
+        </div>
+        <div class="setting-item">
+          <label>Mariposas</label>
+          <input type="range" id="butterfly-slider" min="0" max="20" value="8">
+          <span id="butterfly-value">8</span>
+        </div>
+        <div class="setting-item">
+          <label>Calidad gráfica</label>
+          <select id="quality-select">
+            <option value="low">Baja</option>
+            <option value="medium" selected>Media</option>
+            <option value="high">Alta</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="overlay" class="overlay hidden">
+    <div class="overlay-backdrop"></div>
+    <div class="overlay-content">
+      <button class="overlay-close">×</button>
+      <div id="overlay-body"></div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

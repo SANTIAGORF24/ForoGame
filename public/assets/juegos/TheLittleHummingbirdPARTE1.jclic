@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JClicProject name="TheLittleHummingbirdPARTE1" version="0.1.3">
+ <settings>
+  <title>The little Hummingbird</title>
+  <revision description="created" date="6/1/25" />
+  <descriptors />
+  <meta_langs>es</meta_langs>
+  <descriptions>
+   <description language="es" />
+  </descriptions>
+  <license type="by-nc-sa" url="https://creativecommons.org/licenses/by-nc-sa/4.0" />
+ </settings>
+ <sequence>
+  <item id="start" name="Hummingbird" />
+  <item name="ahh" />
+  <item name="parejas" />
+  <item name="abejitaa" />
+  <item name="bee" />
+ </sequence>
+ <activities>
+  <activity class="@puzzles.DoublePuzzle" name="Hummingbird" code="">
+   <description />
+   <messages>
+    <cell border="true" type="initial">
+     <style borderStroke="0.7" markerStroke="5.0">
+      <color background="0xFF99CC" border="0x66FF00" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="make-the-puzzle.mp3" />
+     <p>Make the puzzle</p>
+    </cell>
+    <cell type="final">
+     <style>
+      <color background="0xFF99CC" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="hummingibird .mp3" />
+     <p>Good Job! Is a hummingbird</p>
+    </cell>
+   </messages>
+   <settings margin="8" dragCells="true" report="true" reportActions="false">
+    <container bgColor="0xACF7F7">
+     <image name="Our Wedding-resized.jpg" tiled="true" />
+     <counters time="false" actions="false" score="false" />
+    </container>
+    <window bgColor="0xE6B7E5" border="true" />
+    <skin file="@green.xml" />
+   </settings>
+   <cells rows="3" cols="2" border="true" image="f40bd456-9a32-4929-84b6-7f7cac482ab3-resized.jpg">
+    <style />
+    <shaper class="@ClassicJigSaw" cols="2" rows="3" />
+   </cells>
+   <scramble times="31" />
+   <layout position="AB" />
+  </activity>
+  <activity class="@puzzles.DoublePuzzle" name="abejitaa" code="">
+   <description />
+   <messages>
+    <cell type="initial">
+     <style>
+      <color background="0x6699FF" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="discover-.mp3" />
+     <p>Discover the imagen</p>
+    </cell>
+    <cell type="final">
+     <style>
+      <color background="0x6699FF" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="some bees.mp3" />
+     <p>Awesome! Some bees</p>
+    </cell>
+   </messages>
+   <settings margin="8" dragCells="true" report="true" reportActions="false">
+    <container bgColor="0xC0C0C0">
+     <image name="0bc886be-14bc-473a-9853-a244699b82c6.jpg" tiled="true" />
+     <counters time="false" actions="false" score="false" />
+    </container>
+    <window bgColor="0x9999FF" border="true" />
+    <skin file="@green.xml" />
+   </settings>
+   <cells rows="2" cols="3" border="true" image="2ead9a1b-5404-4aa8-83eb-5b05a1d902f7-resized.jpg">
+    <style />
+    <shaper class="@ClassicJigSaw" cols="3" rows="2" />
+   </cells>
+   <scramble times="31" />
+   <layout position="AB" />
+  </activity>
+  <activity class="@memory.MemoryGame" name="ahh" code="">
+   <description />
+   <messages>
+    <cell type="initial">
+     <style>
+      <color background="0xFFCCCC" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="matching.mp3" />
+     <p>Matching</p>
+    </cell>
+    <cell type="final">
+     <style>
+      <color background="0xFFCCCC" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="all to well nectar.mp3" />
+     <p>All to well! They drinks nectar.</p>
+    </cell>
+   </messages>
+   <settings margin="8" report="true" reportActions="false">
+    <container bgColor="0xC0C0C0">
+     <image name="🩷🌷.jpg" tiled="true" />
+     <counters time="false" actions="false" score="false" />
+    </container>
+    <window bgColor="0xFF9999" border="true" />
+    <skin file="@orange.xml" />
+   </settings>
+   <cells rows="2" cols="3" border="true" image="everyone-resized.jpg" id="primary">
+    <style />
+    <shaper class="@Rectangular" cols="3" rows="2" />
+   </cells>
+   <scramble times="31" />
+   <layout position="BUA" />
+  </activity>
+  <activity class="@puzzles.DoublePuzzle" name="bee" code="">
+   <description />
+   <messages>
+    <cell type="initial">
+     <style>
+      <color background="0xCC66FF" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="COMPLETE.mp3" />
+     <p>Complete</p>
+    </cell>
+    <cell type="final">
+     <style>
+      <color background="0xCC66FF" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="very good.mp3" />
+     <p>Very Good</p>
+    </cell>
+   </messages>
+   <settings margin="8" dragCells="true" report="true" reportActions="false">
+    <container bgColor="0xC0C0C0">
+     <image name="5f8a189a-4687-4878-90e6-dd5d50fa782f.jpg" tiled="true" />
+     <counters time="true" actions="true" score="true" />
+    </container>
+    <window bgColor="0xCC99FF" border="true" />
+   </settings>
+   <cells rows="2" cols="3" border="true" image="poor bird-resized.jpg">
+    <style />
+    <shaper class="@Holes" cols="3" rows="2">
+     <shape comment="0">ellipse:0.824324,0.005,0.147297,0.195</shape>
+     <shape comment="1">rectangle:0.758108,0.62,0.237838,0.378333</shape>
+     <shape comment="2">ellipse:0.448649,0.616667,0.241892,0.281667</shape>
+     <shape comment="3">rectangle:0.005405,0.288333,0.337838,0.71</shape>
+    </shaper>
+    <cell>
+     <media type="PLAY_AUDIO" level="1" file="SUN.mp3" />
+    </cell>
+    <cell>
+     <media type="PLAY_AUDIO" level="1" file="FLOWER.mp3" />
+    </cell>
+    <cell />
+    <cell>
+     <media type="PLAY_AUDIO" level="1" file="KID.mp3" />
+    </cell>
+   </cells>
+   <scramble times="31" />
+   <layout position="AB" />
+  </activity>
+  <activity class="@memory.MemoryGame" name="parejas" code="">
+   <description />
+   <messages>
+    <cell type="initial">
+     <style>
+      <color background="0xFFFF99" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="search-partners.mp3" />
+     <p>Search for Partners</p>
+    </cell>
+    <cell type="final">
+     <style>
+      <color background="0xFFFF99" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="UNBELIEVABLE.mp3" />
+     <p>Unbelievable</p>
+    </cell>
+   </messages>
+   <settings margin="8" report="true" reportActions="false">
+    <container bgColor="0xC0C0C0">
+     <image name="_Sunflower Aesthetic-resized1.jpg" tiled="true" />
+     <counters time="false" actions="false" score="false" />
+    </container>
+    <window bgColor="0xFFFF99" border="true" />
+    <skin file="@orange.xml" />
+   </settings>
+   <cells rows="2" cols="3" cellWidth="100.0" cellHeight="100.0" border="true" id="primary">
+    <style />
+    <shaper class="@Rectangular" cols="3" rows="2" />
+    <cell image="5ecc6804-fef2-4e0f-bc61-508c52e30c98-resized.jpg">
+     <media type="PLAY_AUDIO" level="1" file="FLOWER.mp3" />
+    </cell>
+    <cell image="Cute Little Bee Cartoon Element, Bee Clipart, Cute Clipart, Cartoon Clipart PNG Transparent Image and Clipart for Free Download-resized.jpg">
+     <media type="PLAY_AUDIO" level="1" file="BEE.mp3" />
+    </cell>
+    <cell txtAlign="right,middle" image="butterfly-resized.jpg">
+     <style>
+      <color background="0x9966FF" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="BUTERFLY.mp3" />
+    </cell>
+    <cell image="i01-f40bd456-9a32-4929-84b6-7f7cac482ab3-resized.jpg">
+     <media type="PLAY_AUDIO" level="1" file="HUMIN.mp3" />
+    </cell>
+    <cell image="Pintado A Mano Pintura Al óleo Nubes Blancas Pintadas A Mano Cielo Azul de Pantalla Imagen para Descarga Gratuita - Pngtree-resized.jpg">
+     <style>
+      <color background="0x0099CC" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="sky.mp3" />
+    </cell>
+    <cell image="Poça d'água de lagoa com grama e pedras no estilo cartoon _ Vetor Premium (1).jpg">
+     <style>
+      <color background="0xCCFFCC" />
+     </style>
+     <media type="PLAY_AUDIO" level="1" file="water.mp3" />
+    </cell>
+   </cells>
+   <scramble times="31" />
+   <layout position="AB" />
+  </activity>
+ </activities>
+ <mediaBag>
+  <media name="0bc886be-14bc-473a-9853-a244699b82c6.jpg" file="0bc886be-14bc-473a-9853-a244699b82c6.jpg" />
+  <media name="2ead9a1b-5404-4aa8-83eb-5b05a1d902f7-resized.jpg" file="2ead9a1b-5404-4aa8-83eb-5b05a1d902f7-resized.jpg" />
+  <media name="5ecc6804-fef2-4e0f-bc61-508c52e30c98-resized.jpg" file="5ecc6804-fef2-4e0f-bc61-508c52e30c98-resized.jpg" />
+  <media name="5f8a189a-4687-4878-90e6-dd5d50fa782f.jpg" file="5f8a189a-4687-4878-90e6-dd5d50fa782f.jpg" />
+  <media name="_Sunflower Aesthetic-resized1.jpg" file="_Sunflower Aesthetic-resized1.jpg" />
+  <media name="butterfly-resized.jpg" file="butterfly-resized.jpg" />
+  <media name="Cute Little Bee Cartoon Element, Bee Clipart, Cute Clipart, Cartoon Clipart PNG Transparent Image and Clipart for Free Download-resized.jpg" file="Cute Little Bee Cartoon Element, Bee Clipart, Cute Clipart, Cartoon Clipart PNG Transparent Image and Clipart for Free Download-resized.jpg" />
+  <media name="everyone-resized.jpg" file="everyone-resized.jpg" />
+  <media name="f40bd456-9a32-4929-84b6-7f7cac482ab3-resized.jpg" file="f40bd456-9a32-4929-84b6-7f7cac482ab3-resized.jpg" />
+  <media name="i01-f40bd456-9a32-4929-84b6-7f7cac482ab3-resized.jpg" file="f40bd456-9a32-4929-84b6-7f7cac482ab3-resized.jpg" />
+  <media name="Our Wedding-resized.jpg" file="Our Wedding-resized.jpg" />
+  <media name="Pintado A Mano Pintura Al óleo Nubes Blancas Pintadas A Mano Cielo Azul de Pantalla Imagen para Descarga Gratuita - Pngtree-resized.jpg" file="Pintado A Mano Pintura Al óleo Nubes Blancas Pintadas A Mano Cielo Azul de Pantalla Imagen para Descarga Gratuita - Pngtree-resized.jpg" />
+  <media name="poor bird-resized.jpg" file="poor bird-resized.jpg" />
+  <media name="Poça d'água de lagoa com grama e pedras no estilo cartoon _ Vetor Premium (1).jpg" file="Poça d'água de lagoa com grama e pedras no estilo cartoon _ Vetor Premium (1).jpg" />
+  <media name="🩷🌷.jpg" file="🩷🌷.jpg" />
+  <media name="all to well nectar.mp3" file="all to well nectar.mp3" />
+  <media name="BEE.mp3" file="BEE.mp3" />
+  <media name="BUTERFLY.mp3" file="BUTERFLY.mp3" />
+  <media name="COMPLETE.mp3" file="COMPLETE.mp3" />
+  <media name="discover-.mp3" file="discover-.mp3" />
+  <media name="FLOWER.mp3" file="FLOWER.mp3" />
+  <media name="good job.mp3" file="good job.mp3" />
+  <media name="HUMIN.mp3" file="HUMIN.mp3" />
+  <media name="hummingibird .mp3" file="hummingibird .mp3" />
+  <media name="KID.mp3" file="KID.mp3" />
+  <media name="make-the-puzzle.mp3" file="make-the-puzzle.mp3" />
+  <media name="matching.mp3" file="matching.mp3" />
+  <media name="search-partners.mp3" file="search-partners.mp3" />
+  <media name="sky.mp3" file="sky.mp3" />
+  <media name="some bees.mp3" file="some bees.mp3" />
+  <media name="SUN.mp3" file="SUN.mp3" />
+  <media name="UNBELIEVABLE.mp3" file="UNBELIEVABLE.mp3" />
+  <media name="very good.mp3" file="very good.mp3" />
+  <media name="water.mp3" file="water.mp3" />
+  <media name="TheLittleHummingbirds.jclic.zip" file="TheLittleHummingbirds.jclic.zip" />
+ </mediaBag>
+</JClicProject>
+
