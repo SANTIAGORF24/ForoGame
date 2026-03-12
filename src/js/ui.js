@@ -1,9 +1,11 @@
 import { getJuegosItems } from "./juegosMedia.js";
 import { getPlaneacionesItems } from "./planeacionesMedia.js";
 import { createBookViewer, destroyBookViewer } from "./bookViewer.js";
+import { createPictionaryViewer, destroyPictionaryViewer } from "./pictionaryViewer.js";
 
 let currentZone = null;
 let activeBookViewer = null;
+let activePictionaryViewer = null;
 
 export function initUI(callbacks) {
   const settingsBtn = document.getElementById("settings-btn");
@@ -318,6 +320,16 @@ export function showOverlay(zone) {
       });
       break;
 
+    case "pictionary": {
+      overlayBody.innerHTML = `
+        <h2>🖼️ Pictionary</h2>
+        <div id="pictionary-content"></div>
+      `;
+      const content = overlayBody.querySelector("#pictionary-content");
+      activePictionaryViewer = createPictionaryViewer(content);
+      break;
+    }
+
     case "bio":
       overlayBody.innerHTML = `
         <h2>👤 Biografías</h2>
@@ -349,6 +361,11 @@ export function hideOverlay() {
   if (activeBookViewer) {
     destroyBookViewer(activeBookViewer);
     activeBookViewer = null;
+  }
+  // Limpiar visor de pictionary si existe
+  if (activePictionaryViewer) {
+    destroyPictionaryViewer(activePictionaryViewer);
+    activePictionaryViewer = null;
   }
   overlay.classList.add("hidden");
 }

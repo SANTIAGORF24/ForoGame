@@ -6,9 +6,11 @@ let zones = [];
 export function createZones(scene) {
   zones = [
     createSpawnVideoZone(scene),
+    createHummingbirdVideoZone(scene),
     createEvidenceZone(scene),
     createPlanningZone(scene),
     createBookZone(scene),
+    createPictionaryZone(scene),
     createBioZone(scene)
   ];
   
@@ -29,6 +31,164 @@ function createSpawnVideoZone(scene) {
     data: { videoUrl: '/assets/video.mp4' },
     update: () => {}
   };
+}
+
+function createHummingbirdVideoZone(scene) {
+  const zoneGroup = new THREE.Group();
+  // Importante: lejos del spawn para que no "gane" la zona introVideo
+  zoneGroup.position.set(30, 0, 0);
+
+  const zoneMat = new THREE.MeshStandardMaterial({
+    color: 0xFFD93D,
+    transparent: true,
+    opacity: 0.12
+  });
+  const zoneGround = new THREE.Mesh(
+    new THREE.CircleGeometry(6.5, 24),
+    zoneMat
+  );
+  zoneGround.rotation.x = -Math.PI / 2;
+  zoneGroup.add(zoneGround);
+
+  // Card (tarjeta) grande para identificar la zona
+  const card = createFloatingCard('THE LITTLE', 'HUMMINGBIRD', 0xFFD93D);
+  card.position.set(0, 3.8, -2.8);
+  zoneGroup.add(card);
+
+  // Flor grande como marcador visual
+  const bigFlower = createBigFlower(0xFF6B6B, 0xFFD93D);
+  bigFlower.position.set(-2.8, 0, 1.2);
+  zoneGroup.add(bigFlower);
+
+  scene.add(zoneGroup);
+
+  return {
+    type: 'introVideo',
+    name: 'The Little Hummingbird',
+    message: 'Presiona E para reproducir video The Little Hummingbird',
+    position: zoneGroup.position.clone(),
+    mesh: zoneGroup,
+    data: { videoUrl: '/assets/video%202.mp4' },
+    update: (mesh, time) => {
+      // Pequeña animación sutil para que se note
+      if (card) {
+        card.position.y = 3.8 + Math.sin(time * 1.5) * 0.12;
+      }
+      if (bigFlower) {
+        bigFlower.rotation.y = Math.sin(time * 0.8) * 0.08;
+      }
+    }
+  };
+}
+
+function createFloatingCard(title, subtitle, color) {
+  const group = new THREE.Group();
+  group.userData.isFloatingCard = true;
+
+  const bgGeo = new THREE.BoxGeometry(3.6, 1.6, 0.12);
+  const bgMat = new THREE.MeshStandardMaterial({
+    color: 0x1a1a2e,
+    roughness: 0.5,
+    metalness: 0.2
+  });
+  const bg = new THREE.Mesh(bgGeo, bgMat);
+  bg.castShadow = true;
+  group.add(bg);
+
+  const borderGeo = new THREE.BoxGeometry(3.8, 1.8, 0.08);
+  const borderMat = new THREE.MeshStandardMaterial({
+    color,
+    emissive: color,
+    emissiveIntensity: 0.25,
+    roughness: 0.4
+  });
+  const border = new THREE.Mesh(borderGeo, borderMat);
+  border.position.z = -0.12;
+  group.add(border);
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 768;
+  canvas.height = 320;
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = '#1a1a2e';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const colorHex = '#' + color.toString(16).padStart(6, '0');
+  const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+  gradient.addColorStop(0, colorHex);
+  gradient.addColorStop(0.5, '#FFA500');
+  gradient.addColorStop(1, colorHex);
+
+  ctx.fillStyle = gradient;
+  ctx.font = 'bold 54px "Press Start 2P", cursive';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.shadowColor = colorHex;
+  ctx.shadowBlur = 24;
+  ctx.fillText(title, canvas.width / 2, 120);
+
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 46px "Press Start 2P", cursive';
+  ctx.fillText(subtitle, canvas.width / 2, 200);
+
+  ctx.fillStyle = '#aaa';
+  ctx.font = '28px "VT323", monospace';
+  ctx.fillText('Presiona E', canvas.width / 2, 270);
+
+  const tex = new THREE.CanvasTexture(canvas);
+  const screenGeo = new THREE.PlaneGeometry(3.4, 1.45);
+  const screenMat = new THREE.MeshStandardMaterial({
+    map: tex,
+    emissive: 0x222222,
+    emissiveIntensity: 0.25,
+    side: THREE.DoubleSide
+  });
+  const screen = new THREE.Mesh(screenGeo, screenMat);
+  screen.position.z = 0.07;
+  screen.renderOrder = 1;
+  group.add(screen);
+
+  group.rotation.y = 0.25;
+  return group;
+}
+
+function createBigFlower(petalColor, centerColor) {
+  const flower = new THREE.Group();
+  flower.userData.isBigFlower = true;
+
+  const stemGeo = new THREE.CylinderGeometry(0.08, 0.1, 2.8, 6);
+  const stemMat = new THREE.MeshStandardMaterial({ color: 0x228B22, roughness: 0.9 });
+  const stem = new THREE.Mesh(stemGeo, stemMat);
+  stem.position.y = 1.4;
+  stem.castShadow = true;
+  flower.add(stem);
+
+  const petalGeo = new THREE.SphereGeometry(0.45, 10, 8);
+  const petalMat = new THREE.MeshStandardMaterial({ color: petalColor, flatShading: true, roughness: 0.7 });
+
+  for (let i = 0; i < 8; i++) {
+    const petal = new THREE.Mesh(petalGeo, petalMat);
+    const angle = (i / 8) * Math.PI * 2;
+    petal.position.set(Math.cos(angle) * 0.65, 2.55, Math.sin(angle) * 0.65);
+    petal.castShadow = true;
+    flower.add(petal);
+  }
+
+  const centerGeo = new THREE.SphereGeometry(0.42, 10, 8);
+  const centerMat = new THREE.MeshStandardMaterial({
+    color: centerColor,
+    emissive: centerColor,
+    emissiveIntensity: 0.15,
+    flatShading: true
+  });
+  const center = new THREE.Mesh(centerGeo, centerMat);
+  center.position.y = 2.55;
+  center.castShadow = true;
+  flower.add(center);
+
+  return flower;
 }
 
 function createEvidenceZone(scene) {
@@ -349,6 +509,46 @@ function createBookZone(scene) {
     type: 'book',
     name: 'Zona de Libro y Juegos',
     message: 'Presiona E para ver contenido',
+    position: zoneGroup.position,
+    mesh: zoneGroup,
+    update: (mesh, time) => {
+      if (book) {
+        book.rotation.y = Math.sin(time * 0.8) * 0.05;
+      }
+    }
+  };
+}
+
+function createPictionaryZone(scene) {
+  const zoneGroup = new THREE.Group();
+  zoneGroup.position.set(15, 0, -20);
+  
+  const zoneMat = new THREE.MeshStandardMaterial({
+    color: 0x4ECDC4,
+    transparent: true,
+    opacity: 0.15
+  });
+  const zoneGround = new THREE.Mesh(
+    new THREE.CircleGeometry(7, 24),
+    zoneMat
+  );
+  zoneGround.rotation.x = -Math.PI / 2;
+  zoneGroup.add(zoneGround);
+
+  const signPost = createSignPost('PICTIONARY', 0x4ECDC4);
+  signPost.position.set(3, 0, -3);
+  zoneGroup.add(signPost);
+
+  const book = createStandingBook();
+  book.position.set(0, 2.8, 0);
+  zoneGroup.add(book);
+
+  scene.add(zoneGroup);
+
+  return {
+    type: 'pictionary',
+    name: 'Zona de Pictionary',
+    message: 'Presiona E para ver Pictionary',
     position: zoneGroup.position,
     mesh: zoneGroup,
     update: (mesh, time) => {
