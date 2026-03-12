@@ -3,12 +3,12 @@ const PLANEACIONES_BASE =
   'assets/planeaciones';
 
 const PLANEACIONES_PDFS = [
-  'Bee comic (1).pdf',
-  'Cañon Alejandra_Garzon Laura_ Lesson planning 2  (1) (2).pdf',
-  'Cañon Alejandra_Garzon Laura_ Lesson planning 2  (2) (1).pdf',
-  'Cañon Alejandra_Garzon Laura_ Lesson planning 2  (4).pdf',
-  'Cañon Alejandra_Garzon Laura_ Lesson planning 3 the magic drink_removed.pdf',
-  'Cañon Alejandra_Garzon Laura_ Lesson planning THE GARDEN HELPERS (1).pdf'
+  'planeacion1.pdf',
+  'planeacion2.pdf',
+  'planeacion3.pdf',
+  'planeacion4.pdf',
+  'planeacion5.pdf',
+  'planeacion6.pdf'
 ];
 const PLANEACIONES_IMAGENES = [];
 const PLANEACIONES_OTROS = [];
