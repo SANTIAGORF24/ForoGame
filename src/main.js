@@ -15,6 +15,7 @@ let beeSpeed = 5;
 let isPaused = false;
 let nearbyZone = null;
 let lights = null;
+let virtualKeys = {};
 
 function resolveBeeTreeCollisions(bee, scene) {
   if (!bee || !scene) return;
@@ -135,6 +136,21 @@ function onUISelect(action, value) {
       nearbyZone = null;
       updateInteractionPrompt(null);
       break;
+    case 'interact':
+      if (nearbyZone) showOverlay(nearbyZone);
+      break;
+    case 'joystick': {
+      const x = value?.x ?? 0;
+      const y = value?.y ?? 0;
+      const dead = 0.18;
+      virtualKeys = {};
+      if (y > dead) virtualKeys['KeyW'] = true;
+      if (y < -dead) virtualKeys['KeyS'] = true;
+      // En móvil: mover el stick a la derecha debe girar a la derecha
+      if (x > dead) virtualKeys['KeyD'] = true;
+      if (x < -dead) virtualKeys['KeyA'] = true;
+      break;
+    }
     case 'music':
       break;
     case 'butterflies':
@@ -154,7 +170,8 @@ function animate() {
     if (lights) {
       applyDayCycle(scene, lights, time);
     }
-    updateBee(bee, keys, beeSpeed, delta, time);
+    const mergedKeys = { ...keys, ...virtualKeys };
+    updateBee(bee, mergedKeys, beeSpeed, delta, time);
     resolveBeeTreeCollisions(bee, scene);
     updateCamera(camera, getBeePosition(), getBeeRotation());
     updateWorld(scene, time);

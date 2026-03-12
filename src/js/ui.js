@@ -6,8 +6,14 @@ import { createPictionaryViewer, destroyPictionaryViewer } from "./pictionaryVie
 let currentZone = null;
 let activeBookViewer = null;
 let activePictionaryViewer = null;
+let isMobile = false;
 
 export function initUI(callbacks) {
+  isMobile =
+    'ontouchstart' in window ||
+    navigator.maxTouchPoints > 0 ||
+    window.matchMedia?.('(pointer: coarse)')?.matches;
+
   const settingsBtn = document.getElementById("settings-btn");
   const closeSettings = document.getElementById("close-settings");
   const speedSlider = document.getElementById("speed-slider");
@@ -18,6 +24,20 @@ export function initUI(callbacks) {
   const qualitySelect = document.getElementById("quality-select");
   const overlayClose = document.querySelector(".overlay-close");
   const overlayBackdrop = document.querySelector(".overlay-backdrop");
+  const mobileControls = document.getElementById("mobile-controls");
+  const mobileInteract = document.getElementById("mobile-interact");
+
+  if (isMobile && mobileControls) {
+    mobileControls.classList.remove("hidden");
+  }
+
+  if (mobileInteract) {
+    mobileInteract.addEventListener("click", () => {
+      callbacks("interact");
+    });
+  }
+
+  setupJoystick(callbacks);
 
   settingsBtn.addEventListener("click", () => {
     callbacks("settings");
@@ -77,14 +97,26 @@ export function initUI(callbacks) {
 export function updateInteractionPrompt(zone) {
   const prompt = document.getElementById("interaction-prompt");
   const promptText = prompt.querySelector(".prompt-text");
+  const mobileInteract = document.getElementById("mobile-interact");
 
   if (zone && zone.message) {
     currentZone = zone;
-    promptText.textContent = zone.message;
-    prompt.classList.remove("hidden");
+    if (isMobile) {
+      // En móvil usamos botón grande centrado
+      if (prompt) prompt.classList.add("hidden");
+      if (mobileInteract) {
+        mobileInteract.classList.remove("hidden");
+        mobileInteract.textContent = "Interactuar";
+      }
+    } else {
+      promptText.textContent = zone.message;
+      prompt.classList.remove("hidden");
+      if (mobileInteract) mobileInteract.classList.add("hidden");
+    }
   } else {
     currentZone = null;
-    prompt.classList.add("hidden");
+    if (prompt) prompt.classList.add("hidden");
+    if (mobileInteract) mobileInteract.classList.add("hidden");
   }
 }
 
@@ -368,6 +400,64 @@ export function hideOverlay() {
     activePictionaryViewer = null;
   }
   overlay.classList.add("hidden");
+}
+
+function setupJoystick(callbacks) {
+  const joystick = document.getElementById("joystick");
+  if (!joystick) return;
+
+  const base = joystick.querySelector(".joystick-base");
+  const stick = joystick.querySelector(".joystick-stick");
+  if (!base || !stick) return;
+
+  let active = false;
+  let pointerId = null;
+  let origin = { x: 0, y: 0 };
+  const maxDist = 42;
+
+  const setStick = (dx, dy) => {
+    stick.style.transform = `translate(${dx}px, ${dy}px)`;
+  };
+
+  const emit = (x, y) => {
+    callbacks("joystick", { x, y });
+  };
+
+  const onDown = (e) => {
+    active = true;
+    pointerId = e.pointerId;
+    joystick.setPointerCapture(pointerId);
+    const rect = base.getBoundingClientRect();
+    origin = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+    emit(0, 0);
+  };
+
+  const onMove = (e) => {
+    if (!active || e.pointerId !== pointerId) return;
+    const dx = e.clientX - origin.x;
+    const dy = e.clientY - origin.y;
+    const dist = Math.min(maxDist, Math.sqrt(dx * dx + dy * dy));
+    const ang = Math.atan2(dy, dx);
+    const cx = Math.cos(ang) * dist;
+    const cy = Math.sin(ang) * dist;
+    setStick(cx, cy);
+    // Normalizado -1..1. Y invertida (arriba = +1)
+    emit(cx / maxDist, -cy / maxDist);
+  };
+
+  const onUp = (e) => {
+    if (e.pointerId !== pointerId) return;
+    active = false;
+    pointerId = null;
+    joystick.releasePointerCapture(e.pointerId);
+    setStick(0, 0);
+    emit(0, 0);
+  };
+
+  joystick.addEventListener("pointerdown", onDown);
+  joystick.addEventListener("pointermove", onMove);
+  joystick.addEventListener("pointerup", onUp);
+  joystick.addEventListener("pointercancel", onUp);
 }
 
 export function getCurrentZone() {
